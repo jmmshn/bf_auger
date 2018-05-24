@@ -1,0 +1,5 @@
+klists.o : base.o energies.o kgrids.o inpfile.o
+energies.o : base.o kgrids.o
+me_fft_direct.o : base.o
+bf_auger_eeh.o : base.o kgrids.o me_fft_direct.o inpfile.o
+bf_auger_hhe.o : base.o kgrids.o me_fft_direct.o inpfile.o
