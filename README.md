@@ -2,7 +2,7 @@
 Brute force Auger calculations
 
 
-# Structure of cod
+# Structure of code
 ```
 ├── README.md
 ├── example
