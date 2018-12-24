@@ -1,7 +1,7 @@
-# Brutef-force Auger Calculations (Beta)
+# Brute-force Auger Calculations (Beta)
 
 While I have tried to make the code more user friendly, this code is still very much a Kludge.
-If you have any touble getting things to work, or if you have any questions, do not hesitate to ask.
+If you have any touble getting things to work, or if you have any questions, do not hesitate to message me on github.
 
 ## Direct Auger recombination
 
@@ -13,15 +13,10 @@ If you have any touble getting things to work, or if you have any questions, do 
 
 ## Phonon-assisted Auger recombination
 
-- Since the phonon-assisted process does not require momentum conservation (the phonon can provide arbitrary amount of )
-
-## Getting Started
-
-Clone the repository to a compute with FFTW 
-
-```
-git clone
-```
+- Since the phonon-assisted process does not require momentum conservation (the phonon can provide arbitrary amount of momentum), the combinatorice will be prohibatively large if we are considering *k*-dependent filling of the of the band edges.
+- We have to overcome this by assuming that all of the states are at a single point at the band-edge (or a few if they are degenerate).
+- Then we compute the electron-phonon matrix elements and Coulomb matrix element
+- Note that use use a patched QE to print the electron-phonon matrix elements within QE because it's important for the phase of all wavefunctions to be consistent.
 
 ### Prerequisites
 
@@ -46,18 +41,6 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ### And coding style tests
 
 Explain what these tests test and why
@@ -68,17 +51,6 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
