@@ -1,4 +1,4 @@
-# Brute-force Auger Calculations (Beta)
+# Brute-Force Auger Calculations (Beta)
 
 While I have tried to make the code more user friendly, this code is still very much a Kludge.
 If you have any touble getting things to work, or if you have any questions, do not hesitate to message me on github.
