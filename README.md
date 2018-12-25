@@ -20,8 +20,7 @@ If you have any touble getting things to work, or if you have any questions, do 
 
 ### Prerequisites
 
-Make sure that cray-FFTW is installed on the cluster you are running on.
-And the module is loaded.
+Make sure that cray-FFTW is installed on the cluster you are running on and make sure the module is loaded.
 
 ### Installing
 
@@ -41,56 +40,27 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Acknowledgments
 
-* Original code by Daniel Steiauf, 
-
-
-# bf_auger
-Brute force Auger calculations
-
+* Original code by Emmanouil Kioupakis, Daniel Steiauf, Patrick Rinke and Kris T Delaney
+* 
 
 # Structure of code
 ```
 ├── README.md
-├── example
 └── src
-    ├── Makefile
-    ├── base.F90
-    ├── bf_auger.F90
-    ├── bf_auger_sub_hhe.F90
-    ├── check_kind.f90
-    ├── energies.F90
-    ├── inpfile.f90
-    ├── kgrids.f90
-    ├── klists.F90
-    ├── make.depend
-    ├── me_direct.F90
-    ├── me_fft_direct.F90
-    └── me_test.f90
+    └── direct
+        ├── base.F90
+        ├── bf_auger.F90
+        ├── bf_auger_sub_hhe.F90
+        ├── check_kind.f90
+        ├── energies.F90
+        ├── inpfile.f90
+        ├── kgrids.f90
+        ├── klists.F90
+        ├── make.depend
+        ├── Makefile
+        ├── me_direct.F90
+        ├── me_fft_direct.F90
+        └── me_test.f90
 ```
