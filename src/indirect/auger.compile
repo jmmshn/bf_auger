@@ -1,0 +1,7 @@
+module load fftw
+TEMP=300
+rm *.o *.mod
+ftn -fast -DMPI -DEEH -DInAs me_fft.F90 tableio.f90 calculate_auger_phonon.F90 -o calculate_auger_phonon.eeh.$TEMP.mpi
+rm *.o *.mod
+ftn -fast -DMPI -DHHE -DInAs me_fft.F90 tableio.f90 calculate_auger_phonon.F90 -o calculate_auger_phonon.hhe.$TEMP.mpi
+rm *.o *.mod
