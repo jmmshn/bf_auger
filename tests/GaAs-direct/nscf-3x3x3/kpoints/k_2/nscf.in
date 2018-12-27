@@ -1,0 +1,27 @@
+&control
+prefix = 'GaAs'
+calculation = 'nscf'
+pseudo_dir = '../PP_DIR'
+wf_collect = .TRUE.
+/
+&system
+ibrav = 2
+A = 5.610905479286161
+nat = 2
+ntyp = 2
+nbnd = 20
+ecutwfc = 50.0
+/
+&electrons
+diagonalization = 'david'
+conv_thr = 1.0d-10
+/
+ATOMIC_SPECIES
+Ga  69.723     Ga.pz-dn-rrkjus_psl.0.2.UPF
+As  74.922     As.pz-n-rrkjus_psl.0.2.UPF
+ATOMIC_POSITIONS crystal
+Ga      0.000000000   0.000000000   0.000000000
+As      0.750000000   0.750000000   0.750000000
+K_POINTS crystal
+1
+0.000000000 0.000000000 0.333333333 1.0

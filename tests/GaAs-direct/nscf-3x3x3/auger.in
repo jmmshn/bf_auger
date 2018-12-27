@@ -1,0 +1,12 @@
+&auger
+nb = 20 , ! number of bands
+ivbm = 9 , ! vbm index
+cEIGfile = GaAs.eig , ! eigenvalue file name
+isoc = 1 , ! spin-orbit coupling (1: no; 2: yes)
+Egap_min = 1.0 , ! minmum band gap value (eV) for evaluating Auger rates
+Egap_step = 0.01 , ! step size for band gap (eV)
+/
+&klist
+T_Kelvin = 300 , ! temperature (K)
+density_cm3=1E18 , ! carrier density (cm^-3)
+/
