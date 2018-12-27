@@ -1,0 +1,28 @@
+&auger
+nskip = 0 , ! number of bands to skip
+nb = 20 , ! number of bands
+ivbm = 9 , ! VBM index
+nphonon = 6 , ! number of phonon modes
+vbmdeg = 3 , ! degenercy factor for VBM
+Egap_min = 1.0 , ! minimum band gap value (eV)
+Egap_max = 5.0 , ! maximum band gap value (eV)
+ngap = 41 , ! number of band gap values to interploted
+eigFile = 'GaAs.eig' , ! eigenvalue file name
+elphFile = 'epmat1.ik01.dat' , ! electron-phonon coupling file name
+phfreqFile = 'omega' , ! phonon frequency file name
+T_Kelvin = 300.0 , ! temperature (K)
+Vcell = 298.013181260 , ! volume of unit cell (Bohr^3)
+a0 = 10.603074713 , ! lattice constant (Bohr)
+latVec11 = -1.0 , ! lattice vector
+latVec12 = -1.0 ,
+latVec13 =  1.0 ,
+latVec21 =  1.0 ,
+latVec22 =  1.0 ,
+latVec23 =  1.0 ,
+latVec31 = -1.0 ,
+latVec32 =  1.0 ,
+latVec33 = -1.0 ,
+n_val = 8 , ! number of valence electrons
+n_free = 1E18 , ! carrier density (cm^-3)
+epsilon_infty = 10.89 , ! dielectric constant 
+/

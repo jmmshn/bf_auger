@@ -1,0 +1,33 @@
+calc_only_A  :  F
+
+begin real_lattice
+-2.805452740     0.000000000     2.805452740
+ 0.000000000     2.805452740     2.805452740
+-2.805452740     2.805452740     0.000000000 
+end real_lattice
+
+begin recip_lattice
+-1.119816638    -1.119816638    1.119816638
+ 1.119816638     1.119816638    1.119816638
+-1.119816638     1.119816638   -1.119816638
+end recip_lattice
+
+begin kpoints
+2
+  0.0000000   0.0000000   0.0000000
+ -0.5000000  -0.5000000  -0.5000000
+end kpoints
+
+begin projections
+   0
+end projections
+
+begin nnkpts
+   1
+1 1  0 0 0 
+2 2  0 0 0 
+end nnkpts
+
+begin exclude_bands
+   0
+end exclude_bands
