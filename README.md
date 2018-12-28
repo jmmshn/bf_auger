@@ -50,7 +50,12 @@ For the direct calculation:
 
 For the indirect calculations:
 
-- First use the patch file to update your quantum espresso install.  [TODO]
+- First use the patch file to update your quantum espresso install (testes for QE 6.2.1) by running:
+```
+patch -s -p0 < [bf_auger]/qe_auger_patch.diff
+```
+In the `PHonon/PH` subdirectory
+[TODO]
 - 
 
 ## Acknowledgments
