@@ -1,0 +1,14 @@
+GaAs phonons
+&inputph
+  tr2_ph   =  1.0d-14
+  prefix   = 'GaAs'
+  outdir   = './'
+  fildyn   = 'GaAs.dyn'
+  epsil    = .false.
+  fildvscf = 'dvscf'
+  trans    = .false.
+  electron_phonon = 'yambo'
+  recover  = .false.
+  verbosity = 'high'
+ /
+0.166666667 -0.166666667 0.500000000

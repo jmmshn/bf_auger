@@ -1,0 +1,204 @@
+
+     Program PWSCF v.6.2 (svn rev. 13949:13950) starts on 24Dec2018 at  1:20: 9 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on     272 processor cores
+     Number of MPI processes:                68
+     Threads/MPI process:                     4
+
+     MPI processes distributed on     1 nodes
+     R & G space division:  proc/nbgrp/npool/nimage =      68
+     Waiting for input...
+     Reading input from standard input
+
+     Current dimensions of program PWSCF are:
+     Max number of different atomic species (ntypx) = 10
+     Max number of k-points (npk) =  40000
+     Max angular momentum in pseudopotentials (lmaxx) =  3
+
+     Atomic positions and unit cell read from directory:
+     ./GaAs.save/
+ 
+               file Ga.pz-dn-rrkjus_psl.0.2.UPF: wavefunction(s)  4S 3D renormalized
+
+     Subspace diagonalization in iterative solution of the eigenvalue problem:
+     a serial algorithm will be used
+
+ 
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min          11      11      2                  208      208      23
+     Max          12      12      3                  212      212      29
+     Sum         769     769    199                14211    14211    1807
+ 
+
+
+     bravais-lattice index     =            2
+     lattice parameter (alat)  =      10.6031  a.u.
+     unit-cell volume          =     298.0132 (a.u.)^3
+     number of atoms/cell      =            2
+     number of atomic types    =            2
+     number of electrons       =        18.00
+     number of Kohn-Sham states=           20
+     kinetic-energy cutoff     =      50.0000  Ry
+     charge density cutoff     =     200.0000  Ry
+     Exchange-correlation      = LDA ( 1  1  0  0 0 0)
+
+     celldm(1)=  10.603075  celldm(2)=   0.000000  celldm(3)=   0.000000
+     celldm(4)=   0.000000  celldm(5)=   0.000000  celldm(6)=   0.000000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (  -0.500000   0.000000   0.500000 )  
+               a(2) = (   0.000000   0.500000   0.500000 )  
+               a(3) = (  -0.500000   0.500000   0.000000 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = ( -1.000000 -1.000000  1.000000 )  
+               b(2) = (  1.000000  1.000000  1.000000 )  
+               b(3) = ( -1.000000  1.000000 -1.000000 )  
+
+
+     PseudoPot. # 1 for Ga read from file:
+     ../PP_DIR/Ga.pz-dn-rrkjus_psl.0.2.UPF
+     MD5 check sum: 337958ae198bc3768054a43796a587a1
+     Pseudo is Ultrasoft + core correction, Zval = 13.0
+     Generated using "atomic" code by A. Dal Corso  v.5.0.2 svn rev. 9415
+     Using radial grid of 1205 points,  6 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+     Q(r) pseudized with 0 coefficients 
+
+
+     PseudoPot. # 2 for As read from file:
+     ../PP_DIR/As.pz-n-rrkjus_psl.0.2.UPF
+     MD5 check sum: f80104272e9b817acfe428865afbdb7e
+     Pseudo is Ultrasoft + core correction, Zval =  5.0
+     Generated using "atomic" code by A. Dal Corso  v.5.0.2 svn rev. 9415
+     Using radial grid of 1209 points,  4 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+     Q(r) pseudized with 0 coefficients 
+
+
+     atomic species   valence    mass     pseudopotential
+        Ga            13.00    69.72300     Ga( 1.00)
+        As             5.00    74.92200     As( 1.00)
+
+     24 Sym. Ops. (no inversion) found
+
+
+
+   Cartesian axes
+
+     site n.     atom                  positions (alat units)
+         1           Ga  tau(   1) = (   0.0000000   0.0000000   0.0000000  )
+         2           As  tau(   2) = (  -0.7500000   0.7500000   0.7500000  )
+
+     number of k points=     1
+                       cart. coord. in units 2pi/alat
+        k(    1) = (   0.0000000   0.0000000   0.0000000), wk =   2.0000000
+
+     Dense  grid:    14211 G-vectors     FFT dimensions: (  36,  36,  36)
+
+     Estimated max dynamical RAM per process >       4.57 MB
+
+     Estimated total dynamical RAM >     310.83 MB
+     Message from routine sym_rho_init:
+     some processors have no G-vectors for symmetrization
+     Message from routine sym_rho_init:
+     some processors have no G-vectors for symmetrization
+     Message from routine sym_rho_init:
+     some processors have no G-vectors for symmetrization
+     Message from routine sym_rho_init:
+     some processors have no G-vectors for symmetrization
+     Message from routine sym_rho_init:
+     some processors have no G-vectors for symmetrization
+     Message from routine sym_rho_init:
+     some processors have no G-vectors for symmetrization
+
+     Check: negative/imaginary core charge=   -0.000007    0.000000
+
+     The potential is recalculated from file :
+     ./GaAs.save/charge-density.dat
+
+     Starting wfc are   13 randomized atomic wfcs +    7 random wfc
+
+     Band Structure Calculation
+     Davidson diagonalization with overlap
+
+     ethr =  5.56E-13,  avg # of iterations = 12.0
+
+     total cpu time spent up to now is        3.8 secs
+
+     End of band structure calculation
+
+          k = 0.0000 0.0000 0.0000 (  1807 PWs)   bands (ev):
+
+    -8.2061  -8.2061  -8.2061  -8.1239  -8.1239  -6.1701   6.7912   6.7912
+     6.7912   7.2369  10.4290  10.4290  10.4290  14.2452  17.0280  17.0280
+    18.3527  18.3527  18.3527  21.1452
+
+     Writing output data file GaAs.save
+ 
+     init_run     :      1.35s CPU      0.75s WALL (       1 calls)
+     electrons    :      2.25s CPU      0.70s WALL (       1 calls)
+
+     Called by init_run:
+     wfcinit      :      0.20s CPU      0.08s WALL (       1 calls)
+     potinit      :      0.29s CPU      0.10s WALL (       1 calls)
+
+     Called by electrons:
+     c_bands      :      2.25s CPU      0.70s WALL (       1 calls)
+     v_of_rho     :      0.03s CPU      0.01s WALL (       1 calls)
+     newd         :      0.04s CPU      0.01s WALL (       1 calls)
+
+     Called by c_bands:
+     init_us_2    :      0.00s CPU      0.00s WALL (       1 calls)
+     cegterg      :      1.83s CPU      0.52s WALL (       1 calls)
+
+     Called by sum_band:
+
+     Called by *egterg:
+     h_psi        :      1.14s CPU      0.36s WALL (      14 calls)
+     s_psi        :      0.15s CPU      0.05s WALL (      14 calls)
+     g_psi        :      0.00s CPU      0.00s WALL (      12 calls)
+     cdiaghg      :      0.27s CPU      0.09s WALL (      13 calls)
+
+     Called by h_psi:
+     h_psi:pot    :      1.14s CPU      0.36s WALL (      14 calls)
+     h_psi:calbec :      0.05s CPU      0.07s WALL (      14 calls)
+     vloc_psi     :      1.02s CPU      0.27s WALL (      14 calls)
+     add_vuspsi   :      0.06s CPU      0.01s WALL (      14 calls)
+
+     General routines
+     calbec       :      0.05s CPU      0.07s WALL (      14 calls)
+     fft          :      0.05s CPU      0.16s WALL (       5 calls)
+     fftw         :      1.00s CPU      0.25s WALL (     454 calls)
+     davcio       :      0.06s CPU      0.02s WALL (       2 calls)
+ 
+     Parallel routines
+     fft_scatt_xy :      0.00s CPU      0.01s WALL (     459 calls)
+     fft_scatt_yz :      0.92s CPU      0.19s WALL (     459 calls)
+ 
+     PWSCF        :     6.28s CPU         4.71s WALL
+
+ 
+   This run was terminated on:   1:20:14  24Dec2018            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=

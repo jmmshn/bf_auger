@@ -1,0 +1,12 @@
+GaAs phonon
+&inputph
+  tr2_ph   =  1.0d-14
+  prefix   = 'GaAs'
+  outdir   = './'
+  fildyn   = 'GaAs.dyn1'
+  epsil    = .false.
+  fildvscf = 'dvscf1_'
+  trans    = .true.
+  recover  = .false.
+ /
+-0.166666667 -1.166666667 0.166666667

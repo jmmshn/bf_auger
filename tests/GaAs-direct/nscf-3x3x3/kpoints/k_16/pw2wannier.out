@@ -1,0 +1,115 @@
+
+     Program PW2WANNIER v.6.2 (svn rev. 13949:13950) starts on 24Dec2018 at  1:30:40 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI & OpenMP), running on     272 processor cores
+     Number of MPI processes:                68
+     Threads/MPI process:                     4
+
+     MPI processes distributed on     1 nodes
+     R & G space division:  proc/nbgrp/npool/nimage =      68
+ 
+  Reading nscf_save data
+
+     Reading data from directory:
+     ./GaAs.save
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation      = LDA ( 1  1  0  0 0 0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+               file Ga.pz-dn-rrkjus_psl.0.2.UPF: wavefunction(s)  4S 3D renormalized
+ 
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min          11      11      3                  208      208      31
+     Max          12      12      4                  212      212      36
+     Sum         769     769    223                14211    14211    2229
+ 
+
+     Check: negative/imaginary core charge=   -0.000007    0.000000
+ 
+  Spin CASE ( default = unpolarized )
+ 
+  Wannier mode is: standalone     
+ 
+  -----------------
+  *** Reading nnkp 
+  -----------------
+ 
+  Checking info from wannier.nnkp file
+ 
+  - Real lattice is ok
+  - Reciprocal lattice is ok
+  - K-points are ok
+  - Number of wannier functions is ok (  0)
+  - All guiding functions are given 
+ 
+ Projections:
+ 
+  Reading data about k-point neighbours 
+ 
+  All neighbours are found 
+ 
+  Opening pp-files 
+ 
+ 
+  -----------------------------
+  *** A matrix is not computed 
+  -----------------------------
+ 
+  -----------------------------
+  *** M matrix is not computed 
+  -----------------------------
+ 
+  -----------------------------------
+  *** Orbital terms are not computed 
+  -----------------------------------
+ 
+  ----------------
+  *** Write bands 
+  ----------------
+ 
+stop_clock: no clock for  compute_amn found !
+ 
+  --------------------
+  *** Write plot info 
+  --------------------
+ 
+nr1s =   36nr2s=   36nr3s=   36
+n1by2=   18n2by2=   18n3by2=   18
+ UNK: iknum =        1
+       1
+
+  UNK written
+ 
+  -----------------------------
+  *** Parity info is not printed 
+  -----------------------------
+ 
+  ------------
+  *** Stop pp 
+  ------------
+ 
+ 
+     init_pw2wan  :      4.88s CPU      3.45s WALL (       1 calls)
+     write_unk    :      0.30s CPU      0.09s WALL (       1 calls)
+ 
+     PW2WANNIER   :     5.51s CPU         3.67s WALL
+
+ 
+   This run was terminated on:   1:30:43  24Dec2018            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=
+ 
