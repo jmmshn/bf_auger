@@ -24,43 +24,62 @@ Make sure that cray-FFTW is installed on the cluster you are running on and make
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+On cori computing cluster, first run:
 ```
-Give the example
+module load cray-fftw
 ```
-
-And repeat
-
+then:
 ```
-until finished
+make all
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Do this for both the direct and indirect versions of the code.
+
+## Examples
+
+The inputs and outputs of two runs for GaAs (on an extremely corse grid) are included.
+
+For the direct calculation:
+
+- Obtain the charge density in the `scf` directory
+- Then in a separate directory called `nscf` here, obatin the wavefunction at each k-point on a arbitrary grid
+- Finally run the auger program to obtain the rates
+
+For the indirect calculations:
+
+- First use the patch file to update your quantum espresso install.
+- Then,....
 
 ## Acknowledgments
 
 * Original code by Emmanouil Kioupakis, Daniel Steiauf, Patrick Rinke and Kris T Delaney
-* 
+* Developed in the group of Chris G. Van de Walle at UC Santa Barbara
 
 # Structure of code
+
 ```
 ├── README.md
 └── src
-    └── direct
+    ├── direct
+    │   ├── base.F90
+    │   ├── bf_auger.F90
+    │   ├── bf_auger_sub_hhe.F90
+    │   ├── check_kind.f90
+    │   ├── energies.F90
+    │   ├── inpfile.f90
+    │   ├── kgrids.f90
+    │   ├── klists.F90
+    │   ├── make.depend
+    │   ├── Makefile
+    │   ├── me_direct.F90
+    │   ├── me_fft_direct.F90
+    │   └── me_test.f90
+    └── indirect
         ├── base.F90
-        ├── bf_auger.F90
-        ├── bf_auger_sub_hhe.F90
-        ├── check_kind.f90
-        ├── energies.F90
+        ├── calculate_auger_phonon.F90
+        ├── fftw3.f
         ├── inpfile.f90
-        ├── kgrids.f90
-        ├── klists.F90
-        ├── make.depend
         ├── Makefile
-        ├── me_direct.F90
-        ├── me_fft_direct.F90
-        └── me_test.f90
+        ├── me_fft.F90
+        └── tableio.f90
 ```
