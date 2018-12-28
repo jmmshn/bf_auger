@@ -1,0 +1,337 @@
+diff -Naru ../PH.orig/check_initial_status.f90 ./check_initial_status.f90
+--- ../PH.orig/check_initial_status.f90	2018-12-28 13:25:24.286418398 -0800
++++ ./check_initial_status.f90	2018-12-28 13:28:35.870977000 -0800
+@@ -142,6 +142,13 @@
+         x_q(:,1)=xq(:)
+         lgamma_iq(1)=lgamma
+         !
++     ELSE IF (elph_yambo) then !KK: added to avoid last_q error
++        nqs = 1
++        last_q = 1
++        ALLOCATE(x_q(3,1))
++        ALLOCATE(lgamma_iq(1))
++        x_q(:,1)=xq(:)
++        lgamma_iq(1)=lgamma
+      END IF
+      !
+      !   Save the mesh of q and the control flags on file
+diff -Naru ../PH.orig/do_phonon.f90 ./do_phonon.f90
+--- ../PH.orig/do_phonon.f90	2018-12-28 13:25:24.287231000 -0800
++++ ./do_phonon.f90	2018-12-28 13:28:35.873030000 -0800
+@@ -39,8 +39,8 @@
+   USE YAMBO,           ONLY : elph_yambo
+   ! YAMBO <
+   !
+-  USE elph_tetra_mod, ONLY : elph_tetra, elph_tetra_lambda, elph_tetra_gamma
+-  USE elph_scdft_mod, ONLY : elph_scdft
++  !USE elph_tetra_mod, ONLY : elph_tetra, elph_tetra_lambda, elph_tetra_gamma
++  !USE elph_scdft_mod, ONLY : elph_scdft
+ 
+   IMPLICIT NONE
+   !
+@@ -117,13 +117,14 @@
+         ELSEIF( elph_simple ) THEN
+            CALL elphsum_simple()
+         ELSEIF( elph_yambo ) THEN
+-           CALL elph_yambo_eval_and_IO()
+-        ELSEIF(elph_tetra == 1) THEN
+-           CALL elph_tetra_lambda()
+-        ELSEIF(elph_tetra == 2) THEN
+-           CALL elph_tetra_gamma()
+-        ELSEIF(elph_tetra == 3) THEN
+-           CALL elph_scdft()
++           CALL elph_write_KK() 
++          !CALL elph_yambo_eval_and_IO()
++        !ELSEIF(elph_tetra == 1) THEN
++        !   CALL elph_tetra_lambda()
++        !ELSEIF(elph_tetra == 2) THEN
++        !   CALL elph_tetra_gamma()
++        !ELSEIF(elph_tetra == 3) THEN
++        !   CALL elph_scdft()
+         ELSE 
+            CALL elphsum()
+         END IF
+diff -Naru ../PH.orig/elphon.f90 ./elphon.f90
+--- ../PH.orig/elphon.f90	2018-12-28 13:25:24.288162735 -0800
++++ ./elphon.f90	2018-12-28 13:28:35.875229000 -0800
+@@ -57,9 +57,9 @@
+ 
+   if(dvscf_star%basis.eq.'cartesian') then
+      write(stdout,*) 'Setting patterns to identity'
+-     u=(0.d0,0.d0)
++     u=CMPLX(0.d0,0.d0)
+      do irr=1,3*nat
+-        u(irr,irr)=(1.d0,0.d0)
++        u(irr,irr)=CMPLX(1.d0,0.d0)
+      enddo
+   endif
+   !
+@@ -203,12 +203,6 @@
+   IF ( ntyp.NE.ntyp_ .OR. nat.NE.nat_ .OR.ibrav_.NE.ibrav .OR. &
+        ABS ( celldm_ (1) - celldm (1) ) > 1.0d-5) &
+           CALL errore ('readmat', 'inconsistent data', 1)
+-  IF ( ibrav_ == 0 ) THEN
+-     READ (iudyn, '(a)') line
+-     READ (iudyn, '(a)') line
+-     READ (iudyn, '(a)') line
+-     READ (iudyn, '(a)') line
+-  END IF
+   DO nt = 1, ntyp
+      READ (iudyn, * ) i, atm, amass_
+      IF ( nt.NE.i .OR. ABS (amass_ - amu_ry*amass (nt) ) > 1.0d-5) &
+@@ -287,7 +281,7 @@
+   USE buffers, ONLY : get_buffer
+   USE uspp, ONLY : vkb
+   USE el_phon, ONLY : el_ph_mat, el_ph_mat_rec, el_ph_mat_rec_col, &
+-                      comp_elph, done_elph, elph_nbnd_min, elph_nbnd_max
++                      comp_elph, done_elph
+   USE modes, ONLY : u
+   USE units_ph, ONLY : iubar, lrbar, lrwfc, iuwfc
+   USE control_ph, ONLY : trans, current_iq
+@@ -296,7 +290,7 @@
+   USE mp_bands,   ONLY: intra_bgrp_comm, ntask_groups
+   USE mp_pools,   ONLY: npool
+   USE mp,        ONLY: mp_sum
+-  USE elph_tetra_mod, ONLY : elph_tetra
++  !USE elph_tetra_mod, ONLY : elph_tetra
+ 
+   USE eqv,        ONLY : dvpsi, evq
+   USE qpoint,     ONLY : nksq, ikks, ikqs, nksqtot
+@@ -315,15 +309,15 @@
+        tg_psic(:,:), aux2(:,:)
+   INTEGER :: v_siz, incr
+   COMPLEX(DP), EXTERNAL :: zdotc
+-  integer :: ibnd_fst, ibnd_lst
++  !integer :: ibnd_fst, ibnd_lst
+   !
+-  if(elph_tetra == 0) then
+-     ibnd_fst = 1
+-     ibnd_lst = nbnd
+-  else
+-     ibnd_fst = elph_nbnd_min
+-     ibnd_lst = elph_nbnd_max
+-  end if
++  !if(elph_tetra == 0) then
++  !   ibnd_fst = 1
++  !   ibnd_lst = nbnd
++  !else
++  !   ibnd_fst = elph_nbnd_min
++  !   ibnd_lst = elph_nbnd_max
++  !end if
+   !
+   IF (.NOT. comp_elph(irr) .OR. done_elph(irr)) RETURN
+ 
+@@ -398,7 +392,7 @@
+            ENDIF
+         ENDIF
+         aux2=(0.0_DP,0.0_DP)
+-        DO ibnd = ibnd_fst, ibnd_lst, incr
++        DO ibnd = 1, nbnd, incr
+            IF ( dffts%have_task_groups ) THEN
+               CALL cft_wave_tg (ik, evc, tg_psic, 1, v_siz, ibnd, nbnd )
+               CALL apply_dpot(v_siz, tg_psic, tg_dv, 1)
+@@ -415,8 +409,8 @@
+         !
+         ! calculate elphmat(j,i)=<psi_{k+q,j}|dvscf_q*psi_{k,i}> for this pertur
+         !
+-        DO ibnd = ibnd_fst, ibnd_lst
+-           DO jbnd = ibnd_fst, ibnd_lst
++        DO ibnd = 1, nbnd
++           DO jbnd = 1, nbnd
+               elphmat (jbnd, ibnd, ipert) = zdotc (npwq, evq (1, jbnd), 1, &
+                    dvpsi (1, ibnd), 1)
+               IF (noncolin) &
+@@ -431,8 +425,8 @@
+      !  save all e-ph matrix elements into el_ph_mat
+      !
+      DO ipert = 1, npe
+-        DO jbnd = ibnd_fst, ibnd_lst
+-           DO ibnd = ibnd_fst, ibnd_lst
++        DO jbnd = 1, nbnd
++           DO ibnd = 1, nbnd
+               el_ph_mat (ibnd, jbnd, ik, ipert + imode0) = elphmat (ibnd, jbnd, ipert)
+               el_ph_mat_rec (ibnd, jbnd, ik, ipert ) = elphmat (ibnd, jbnd, ipert)
+            ENDDO
+@@ -441,16 +435,14 @@
+   ENDDO
+   !
+   done_elph(irr)=.TRUE.
+-  if(elph_tetra == 0) then
+-     IF (npool>1) THEN
+-        ALLOCATE(el_ph_mat_rec_col(nbnd,nbnd,nksqtot,npe))
+-        CALL el_ph_collect(npe,el_ph_mat_rec,el_ph_mat_rec_col,nksqtot,nksq)
+-     ELSE
+-        el_ph_mat_rec_col => el_ph_mat_rec
+-     ENDIF
+-     CALL ph_writefile('el_phon',current_iq,irr,ierr)
+-     IF (npool > 1) DEALLOCATE(el_ph_mat_rec_col)
+-  end if
++  IF (npool>1) THEN
++     ALLOCATE(el_ph_mat_rec_col(nbnd,nbnd,nksqtot,npe))
++     CALL el_ph_collect(npe,el_ph_mat_rec,el_ph_mat_rec_col,nksqtot,nksq)
++  ELSE
++     el_ph_mat_rec_col => el_ph_mat_rec
++  ENDIF
++  CALL ph_writefile('el_phon',current_iq,irr,ierr)
++  IF (npool > 1) DEALLOCATE(el_ph_mat_rec_col)
+   DEALLOCATE(el_ph_mat_rec)
+   !
+   DEALLOCATE (elphmat)
+@@ -1138,7 +1130,156 @@
+      
+ 
+ END SUBROUTINE elphsum_simple
+-   
++
++SUBROUTINE elph_write_KK()
++!-----------------------------------------------------
++ !-----------------------------------------------------------------------
++  !
++  USE kinds,     ONLY : DP
++  USE constants, ONLY : pi, ry_to_cmm1, ry_to_ghz, rytoev, eps8
++  USE ions_base,     ONLY : nat, ityp, tau
++  USE cell_base,     ONLY : at, bg, ibrav
++  USE klist, ONLY: nks, xk, wk, nelec
++  USE symm_base, ONLY: s, irt, nsym, time_reversal, invs
++  USE lr_symm_base, ONLY : rtau, nsymq, irotmq, minus_q
++  USE wvfct, ONLY: nbnd, et
++  USE phcom
++  USE el_phon
++  USE mp_pools, ONLY : npool, me_pool
++  USE mp_world, ONLY : world_comm, mpime
++  USE mp, ONLY : mp_barrier
++  USE qpoint, ONLY : xq, nksq, ikks, ikqs
++  USE control_lr, ONLY : nbnd_occ
++  !USE control_ph, ONLY : lgamma    !KK: not required
++  !
++  IMPLICIT NONE
++  !
++  !-- ESK
++  COMPLEX(DP), ALLOCATABLE :: g1_ESK(:,:,:,:), g1_ESKnu(:,:,:,:)
++  COMPLEX(DP), ALLOCATABLE :: g2_ESK(:,:,:,:,:), g2_ESKnu(:,:,:,:)
++  INTEGER :: ipol
++  INTEGER :: mypool
++  INTEGER :: ik, ibnd, jbnd, ipert, jpert, nu, mu, vu, i,k,j
++
++  CHARACTER(len=1024) :: epfilename1
++  CHARACTER(len=1024) :: epfilename2
++  !
++
++  WRITE (6, '(5x,"electron-phonon interaction  ..."/)')
++  !
++  IF (npool > 1) CALL errore ('elphsum', 'pools and a2F not implemented', 1)
++  !IF (npool > 14) CALL errore ('elphsum', 'HP: npool too large', 1)
++  !
++  !mypool=mpime+1
++  !if (mypool < 15) then
++  !-- ESK
++  !HP: reorder to decrease memory: only small matrices remain in memory
++  ALLOCATE(g1_ESK(3*nat,nbnd,nbnd,nksq),g1_ESKnu(3*nat,nbnd,nbnd,nksq))
++  ALLOCATE(g2_ESK(3*nat,3*nat,nbnd,nbnd,nksq),g2_ESKnu(3*nat,nbnd,nbnd,nksq))
++
++  do ik = 1, nksq
++
++     write (epfilename1,'(A9,I0.2,A4)') "epmat1.ik", ik,".dat"
++     write (epfilename2,'(A9,I0.2,A4)') "epmat2.ik", ik,".dat"
++
++     open(823, file=epfilename1,form='formatted')
++     write(823,'(a)') 'ik  | ibnd  | jbnd  | nu   | omega(nu) (meV) |  REAL(g1(nu,ibnd,jbnd,ik)) | IMAG(g1(nu,ibnd,jbnd,ik)) '
++
++     open(824, file=epfilename2,form='formatted')
++     write(824,'(a)') 'ik  | ibnd  | jbnd  | nu   |  omega(nu) (meV) | g2(nu,ibnd,jbnd,ik) '
++     
++     do ibnd = 1, nbnd
++        do jbnd = 1, nbnd
++           !-- ESK: This does not take into account symmetries between degenerate phonon modes..
++           !-- However, the sum of squares of degenerate modes is the same. Once all phonon modes are summed,.
++           !-- the difference does not matter..
++           !--------------------KK-----------------------!
++           ! Need to average matrix elements over
++           ! degenerate electron and phonon modes
++           ! **Important for looking at individual modes
++           ! but doesn't matter when summed as ESK states
++           ! Here we average over degenerate phonon modes
++           ! by assuming a maximum of three degenerate modes
++
++           !----------------KK---------------------------!
++
++           !------------------------ESK-------------------!
++           do jpert = 1, 3 * nat
++              g1_ESK(jpert, ibnd, jbnd, ik) = CMPLX(0.0_DP,0.0_DP)
++              do ipert = 1, 3 * nat
++                g1_ESK(jpert, ibnd, jbnd, ik) = g1_ESK(jpert, ibnd, jbnd, ik) + u(jpert,ipert)*conjg (el_ph_mat (jbnd, ibnd, ik, ipert)) 
++              enddo !jpert
++           enddo !ipert
++        enddo !jbnd
++      enddo !ibnd
++
++     do ibnd = 1, nbnd
++          do jbnd = 1, nbnd
++             do jpert = 1, 3 * nat
++                do ipert = 1, 3 * nat
++                   g2_ESK (ipert, jpert, ibnd, jbnd, ik) = conjg (el_ph_mat (jbnd, ibnd, ik, ipert) ) * &
++                        el_ph_mat (jbnd, ibnd, ik, jpert)
++                enddo
++             enddo
++             ! go from pattern to cartesian
++             call symdyn_munu_new (g2_ESK(:,:,ibnd,jbnd,ik), u, xq, s, invs, rtau, irt, at, &
++                  bg, nsymq, nat, irotmq, minus_q)
++          enddo
++       enddo
++    enddo
++
++  g1_ESKnu(:,:,:,:) = cmplx(0.0_DP,0.0_DP)
++  g2_ESKnu(:,:,:,:) = cmplx(0.0_DP,0.0_DP)
++
++
++  do ik=1, nksq
++
++     do ibnd = 1, nbnd
++     do jbnd = 1, nbnd
++        do nu = 1, nmodes
++        do mu = 1, nmodes
++           do vu = 1, nmodes
++              ! 0.5 factor is due to 1/2Mw.
++              g2_ESKnu(nu,ibnd,jbnd,ik) = g2_ESKnu(nu,ibnd,jbnd,ik) + &
++                   conjg(dyn(mu,nu))*g2_ESK(mu,vu,ibnd,jbnd,ik)*dyn(vu,nu)*0.5
++           enddo
++        enddo
++        if (w2(nu) > 0) then
++          write(824,'(4i6, f15.9, e20.10)') ik,ibnd,jbnd,nu,1.0e3*sqrt(w2(nu))*rytoev,real(g2_ESKnu(nu,ibnd,jbnd,ik))
++        else
++          write(824,'(4i6, f15.9, e20.10)') ik,ibnd,jbnd,nu,0,real(g2_ESKnu(nu,ibnd,jbnd,ik))
++        endif
++        enddo
++     enddo
++     enddo
++
++     do ibnd = 1, nbnd
++     do jbnd = 1, nbnd
++        do nu = 1, nmodes
++        do mu = 1, nmodes
++           ! 0.5 factor is due to 1/2Mw.
++           g1_ESKnu(nu,ibnd,jbnd,ik) = g1_ESKnu(nu,ibnd,jbnd,ik) + &
++                conjg(dyn(mu,nu))*g1_ESK(mu,ibnd,jbnd,ik)*SQRT(0.5_DP)
++        enddo
++        if (w2(nu) > 0) then
++          write(823,'(4i6, f15.9, e20.10, e20.10)') ik,ibnd,jbnd,nu,1.0e3*sqrt(w2(nu))*rytoev, real(g1_ESKnu(nu,ibnd,jbnd,ik)), aimag(g1_ESKnu(nu,ibnd,jbnd,ik))
++        else
++          write(823,'(4i6, f15.9, e20.10, e20.10)') ik,ibnd,jbnd,nu,0, real(g1_ESKnu(nu,ibnd,jbnd,ik)), aimag(g1_ESKnu(nu,ibnd,jbnd,ik))
++        endif
++        enddo
++     enddo
++     enddo
++     close(823)
++     close(824)
++  enddo !ik
++  !end if !mypool
++           !------------------------ESK-------------------!
++
++  call mp_barrier(world_comm)
++  RETURN
++
++END SUBROUTINE elph_write_KK
++  
+ !-----------------------------------------------------------------------
+ FUNCTION dos_ef (ngauss, degauss, ef, et, wk, nks, nbnd)
+   !-----------------------------------------------------------------------
