@@ -5,7 +5,6 @@
 #SBATCH -C knl,quad,cache
 #SBATCH -N 1
 #SBATCH -t 00:30:00
-#SBATCH -A m934
 
 export OMP_PROC_BIND=true
 export OMP_PLACES=threads
