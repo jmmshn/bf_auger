@@ -55,7 +55,6 @@ For the indirect calculations:
 patch -s -p0 < [bf_auger]/qe_auger_patch.diff
 ```
 In the `PHonon/PH` subdirectory
-[TODO]
 - 
 
 ## Acknowledgments
