@@ -42,13 +42,16 @@ The inputs and outputs of two runs for GaAs (on an extremely corse grid) are inc
 For the direct calculation:
 
 - Obtain the charge density in the `scf` directory
-- Then in a separate directory called `nscf` here, obatin the wavefunction at each k-point on a arbitrary grid
-- Finally run the auger program to obtain the rates
+- Obtain the kpoints file in the following the format of the `kpoints.elec` and `kpoints.hole` examples in the nscf directory
+- Run the klist.x program in the directory with the kpoints files to generate the `klist.elec.irr` file. Which lists of kpoints in the irreducible zone
+- In folders named `k_#` where `#` is the index from the `kpoints.elec` file, perform nscf calculations for each k-point.  (examples in `./GaAs-direct/nscf-3x3x3`)
+- After completing the run on the irreducible zone we can run the `klists.x` program again to get the Fermi filling, and generate the additional `klist` files to for other points that are need from the BZ.
+- After completing QE runs for all of those directories, we can finally run the auger program to obtain the rates
 
 For the indirect calculations:
 
-- First use the patch file to update your quantum espresso install.
-- Then,....
+- First use the patch file to update your quantum espresso install.  [TODO]
+- 
 
 ## Acknowledgments
 
