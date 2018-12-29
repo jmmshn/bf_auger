@@ -57,6 +57,14 @@ patch -s -p0 < [bf_auger]/qe_auger_patch.diff
 
 In the `PHonon/PH` subdirectory
 
+- Obtain the irreducible q-point files: `kirr_cartesian.dat` and `klist_weights.dat`. The `kirr_cartesian.dat` contains the q-point list written in cartesian coordinates, which will be used for the phonon and electron-phonon coupling calculations. The `klist_weights.dat` is written in relative coordinates and contains the normalized weight for each q-point.
+- Run the `makedirs.tsch` script to create the directories (`phonon_#`, where # is the index of q-point) and input files for each q-point contained in `kirr_cartesian.dat`.
+- Run `ph.x < ph1.in > ph1.out` to compute the phonon frequencies for each q-point. Run the `extract-freq.sh` to extract the phonon frequencies written into a file named `omega`.
+- Run `pw.x < nscf.in > nscf.out` to perform a non-selfconsistent calculation for the kpoint where the band gap is located.
+- Run `ph.x < ph2.in > ph2.out` to compute the electron-phonon coupling matrix elements between k and k+q.
+- Run the `makennkp.sh` script inside each `phonon_#` directory. This will take `ph2.out` as input to generate the `GaAs.nnkp` file, which will be used by pw2wannier.x. Move the generated `GaAs.nnkp` file to the `_ph0` directory.
+- Run `pw2wannier90.x < pw2wannier.in > pw2wannier.out` to extract the eigenvalues (`GaAs.eig`) and wavefunctions (`UNK00001.1` and `UNK00002.1`) for `k` and `k+q`. After completion, move `GaAs.eig`, `UNK00001.1` and `UNK00002.1` files to the directory one level above.
+- Run the indirect Auger executables with the `auger.in` file as input to compute the indirect Auger recombination rates.
 
 ## Acknowledgments
 
