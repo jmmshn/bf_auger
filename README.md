@@ -1,4 +1,4 @@
-# Brute-Force Auger Calculations (Beta)
+# First-principles calculations of Auger recombination rates (Beta)
 
 We have tried to make the code as user friendly as possible. If you have any trouble getting things to work, or if you have any questions, do not hesitate to message me on github.
 
